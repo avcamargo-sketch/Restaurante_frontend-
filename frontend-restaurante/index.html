@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurante XYZ - Login</title>
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/modals.css">
+</head>
+<body>
+    <h1>Restaurante XYZ</h1>
+    
+    <section class="content">
+        <!-- LOGIN -->
+        <section id="loginSection">
+            <h2>Iniciar Sesión</h2>
+            <form name="loginForm">
+                <div>
+                    <label for="usuario">Usuario o Correo:</label>
+                    <input type="text" name="usuario" required placeholder="admin">
+                </div>
+                <div>
+                    <label for="contrasena">Contraseña:</label>
+                    <input type="password" name="contrasena" required placeholder="admin123">
+                </div>
+                <div>
+                    <button type="submit">Ingresar</button>
+                </div>
+            </form>
+        </section>
+        
+        <!-- MENÚ PRINCIPAL (oculto inicialmente) -->
+        <section id="menuSection" style="display: none;">
+            <h2>Menú Principal</h2>
+            <nav>
+                <button onclick="mostrarMesas()">Mesas</button>
+                <button onclick="mostrarReservas()">Reservas</button>
+                <button onclick="mostrarProductos()">Productos</button>
+                <button onclick="mostrarPedidos()">Pedidos</button>
+                <button onclick="cerrarSesion()">Cerrar Sesión</button>
+            </nav>
+        </section>
+    </section>
+    
+    <!-- MODAL PARA MENSAJES -->
+       <!-- MODAL PARA MENSAJES -->
+    <div id="modal1" class="modal close">
+        <div class="modal_content">
+            <p id="modalMsg">Mensaje</p>
+            <button onclick="hideMsg()">Aceptar</button>
+        </div>
+    </div>
+    
+    <!-- SCRIPTS -->
+    <script src="js/modal.js"></script>
+    <script src="js/auth.js"></script>
+</body>
+</html>

@@ -25,8 +25,7 @@ async function consultarProductos() {
             return;
         }
         
-        let html = '<table><thead><tr><th>Nombre</th><th>Precio</th><th>Categoría</th><th>Disponible</th><th>Acciones</th></tr></thead><tbody>';
-        
+       let html = '<div class="table-container"><table><thead><tr><th>Nombre</th><th>Precio</th><th>Categoría</th><th>Disponible</th><th>Acciones</th></tr></thead><tbody>';
         productos.forEach(producto => {
             html += `
                 <tr>
@@ -41,8 +40,7 @@ async function consultarProductos() {
                 </tr>
             `;
         });
-        
-        html += '</tbody></table>';
+        html += '</tbody></table></div>';
         productosContent.innerHTML = html;
         
     } catch (error) {

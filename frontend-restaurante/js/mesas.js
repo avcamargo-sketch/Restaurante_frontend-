@@ -25,7 +25,7 @@ async function consultarMesas() {
             return;
         }
         
-        let html = '<table><thead><tr><th>Número</th><th>Capacidad</th><th>Estado</th><th>Acciones</th></tr></thead><tbody>';
+       let html = '<div class="table-container"><table><thead><tr><th>Número</th><th>Capacidad</th><th>Estado</th><th>Acciones</th></tr></thead><tbody>';
         
         mesas.forEach(mesa => {
             html += `
@@ -42,8 +42,8 @@ async function consultarMesas() {
             `;
         });
         
-        html += '</tbody></table>';
-        mesasContent.innerHTML = html;
+     html += '</tbody></table></div>';
+     mesasContent.innerHTML = html;
         
     } catch (error) {
         console.error(error);

@@ -25,7 +25,7 @@ async function consultarPedidos() {
             return;
         }
         
-        let html = '<table><thead><tr><th>Mesa</th><th>Fecha</th><th>Total</th><th>Estado</th><th>Acciones</th></tr></thead><tbody>';
+        let html = '<div class="table-container"><table><thead><tr><th>Mesa</th><th>Fecha</th><th>Total</th><th>Estado</th><th>Acciones</th></tr></thead><tbody>';
         
         pedidos.forEach(pedido => {
             html += `
@@ -42,8 +42,8 @@ async function consultarPedidos() {
             `;
         });
         
-        html += '</tbody></table>';
-        pedidosContent.innerHTML = html;
+     html += '</tbody></table></div>';
+     pedidosContent.innerHTML = html;
         
     } catch (error) {
         console.error(error);

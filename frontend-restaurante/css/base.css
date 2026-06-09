@@ -1,3 +1,24 @@
+/* ============================================
+   RESTAURANTE XYZ - ESTILO NEÓN CYBERPUNK
+   ============================================ */
+
+/* Variables de colores neón */
+:root {
+    --neon-blue: #00f3ff;
+    --neon-pink: #ff00ff;
+    --neon-green: #00ff88;
+    --neon-purple: #b300ff;
+    --neon-yellow: #ffff00;
+    --neon-orange: #ff6600;
+    --dark-bg: #0a0a0f;
+    --darker-bg: #050508;
+    --card-bg: rgba(20, 20, 35, 0.8);
+    --text-primary: #ffffff;
+    --text-secondary: #a0a0b0;
+    --border-glow: 0 0 10px rgba(0, 243, 255, 0.5);
+}
+
+/* Reset y base */
 * {
     padding: 0;
     margin: 0;
@@ -6,167 +27,476 @@
 }
 
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f5f5f5;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, var(--darker-bg) 0%, var(--dark-bg) 50%, #0f0f1a 100%);
     min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    color: var(--text-primary);
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* Efecto de partículas de fondo */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 20% 50%, rgba(0, 243, 255, 0.03) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(255, 0, 255, 0.03) 0%, transparent 50%),
+        radial-gradient(circle at 40% 20%, rgba(0, 255, 136, 0.03) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* ============================================
+   LOGO Y TÍTULO
+   ============================================ */
+
+.logo-container {
+    text-align: center;
+    padding: 30px 20px 20px;
+    position: relative;
+    z-index: 1;
+}
+
+.logo-svg {
+    width: 120px;
+    height: 120px;
+    margin-bottom: 15px;
+    filter: drop-shadow(0 0 20px rgba(0, 243, 255, 0.6));
+    animation: logoPulse 3s ease-in-out infinite;
+}
+
+@keyframes logoPulse {
+    0%, 100% { filter: drop-shadow(0 0 20px rgba(0, 243, 255, 0.6)); transform: scale(1); }
+    50% { filter: drop-shadow(0 0 30px rgba(0, 243, 255, 0.9)); transform: scale(1.05); }
 }
 
 h1 {
-    margin: 20px auto;
+    font-size: 42px;
+    font-weight: 700;
     text-align: center;
-    color: #333;
-    font-size: 32px;
-    width: 100%;
+    background: linear-gradient(90deg, var(--neon-blue), var(--neon-pink), var(--neon-purple));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: none;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    position: relative;
+    z-index: 1;
+    animation: titleGlow 2s ease-in-out infinite alternate;
+}
+
+@keyframes titleGlow {
+    from { filter: drop-shadow(0 0 5px rgba(0, 243, 255, 0.5)); }
+    to { filter: drop-shadow(0 0 15px rgba(255, 0, 255, 0.5)); }
 }
 
 h2 {
-    margin: 16px 0;
-    color: #444;
-    font-size: 22px;
+    font-size: 28px;
+    color: var(--neon-blue);
     text-align: center;
+    margin-bottom: 25px;
+    text-shadow: 0 0 10px rgba(0, 243, 255, 0.5);
+    letter-spacing: 2px;
+    position: relative;
+}
+
+h2::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--neon-blue), var(--neon-pink));
+    margin: 10px auto 0;
+    border-radius: 2px;
+    box-shadow: 0 0 10px var(--neon-blue);
 }
 
 h3 {
-    margin: 15px 0;
-    color: #555;
-    font-size: 18px;
+    font-size: 22px;
+    color: var(--neon-green);
+    margin-bottom: 20px;
+    text-shadow: 0 0 8px rgba(0, 255, 136, 0.4);
 }
 
 h4 {
-    margin: 10px 0;
-    color: #666;
-    font-size: 16px;
+    font-size: 18px;
+    color: var(--neon-yellow);
+    margin: 15px 0 10px;
 }
+
+/* ============================================
+   ICONOS DE SECCIÓN (PEQUEÑOS - 40px)
+   ============================================ */
+
+.section-icon {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.section-icon svg {
+    width: 40px;
+    height: 40px;
+    filter: drop-shadow(0 0 8px rgba(0, 243, 255, 0.4));
+    animation: iconFloat 3s ease-in-out infinite;
+}
+
+@keyframes iconFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-3px); }
+}
+
+#loginSection .section-icon svg {
+    filter: drop-shadow(0 0 8px rgba(0, 243, 255, 0.5));
+}
+
+#menuSection .section-icon svg {
+    filter: drop-shadow(0 0 8px rgba(255, 0, 255, 0.5));
+    animation: iconPulse 2s ease-in-out infinite;
+}
+
+@keyframes iconPulse {
+    0%, 100% { transform: scale(1); filter: drop-shadow(0 0 8px rgba(255, 0, 255, 0.5)); }
+    50% { transform: scale(1.05); filter: drop-shadow(0 0 12px rgba(255, 0, 255, 0.8)); }
+}
+
+#mesasSection .section-icon svg {
+    filter: drop-shadow(0 0 8px rgba(0, 255, 136, 0.5));
+}
+
+#reservasSection .section-icon svg {
+    filter: drop-shadow(0 0 8px rgba(255, 0, 255, 0.5));
+}
+
+#productosSection .section-icon svg {
+    filter: drop-shadow(0 0 8px rgba(255, 255, 0, 0.5));
+}
+
+#pedidosSection .section-icon svg {
+    filter: drop-shadow(0 0 8px rgba(255, 102, 0, 0.5));
+}
+
+/* ============================================
+   CONTENEDOR PRINCIPAL
+   ============================================ */
 
 .content {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 20px;
+    gap: 25px;
     width: 100%;
-    min-height: 80vh;
+    min-height: 70vh;
     padding: 20px;
+    position: relative;
+    z-index: 1;
 }
+
+/* ============================================
+   SECCIONES / CARDS
+   ============================================ */
 
 section {
-    background: white;
-    padding: 40px;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    background: var(--card-bg);
+    padding: 35px;
+    border-radius: 20px;
+    border: 1px solid rgba(0, 243, 255, 0.2);
+    box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1),
+        0 0 20px rgba(0, 243, 255, 0.1);
     width: 90%;
-    max-width: 800px;
+    max-width: 900px;
     margin: 0 auto;
+    backdrop-filter: blur(10px);
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
 }
 
+section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--neon-blue), var(--neon-pink), transparent);
+    animation: borderSlide 3s linear infinite;
+}
+
+@keyframes borderSlide {
+    0% { left: -100%; }
+    100% { left: 100%; }
+}
+
+section:hover {
+    box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.15),
+        0 0 30px rgba(0, 243, 255, 0.2);
+    transform: translateY(-2px);
+}
+
+/* ============================================
+   FORMULARIOS
+   ============================================ */
+
 form div {
-    margin-bottom: 15px;
+    margin-bottom: 20px;
     display: flex;
     flex-direction: column;
 }
 
 label {
-    margin-bottom: 5px;
-    font-weight: bold;
-    color: #555;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: var(--neon-blue);
     font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-shadow: 0 0 5px rgba(0, 243, 255, 0.3);
 }
 
 input, select {
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 14px;
+    padding: 14px 16px;
+    background: rgba(10, 10, 20, 0.6);
+    border: 2px solid rgba(0, 243, 255, 0.3);
+    border-radius: 12px;
+    font-size: 15px;
+    color: var(--text-primary);
     width: 100%;
-}
-
-input:focus, select:focus {
-    border-color: #007bff;
+    transition: all 0.3s ease;
     outline: none;
 }
 
+input::placeholder {
+    color: rgba(160, 160, 176, 0.6);
+}
+
+input:focus, select:focus {
+    border-color: var(--neon-blue);
+    box-shadow: 0 0 15px rgba(0, 243, 255, 0.3), inset 0 0 10px rgba(0, 243, 255, 0.1);
+    background: rgba(10, 10, 25, 0.8);
+}
+
+/* ============================================
+   BOTONES
+   ============================================ */
+
 button {
-    padding: 12px 20px;
-    margin: 5px;
-    border: 1px solid #333;
-    border-radius: 15px;
-    background-color: white;
+    padding: 14px 28px;
+    margin: 8px;
+    border: 2px solid transparent;
+    border-radius: 25px;
+    background: linear-gradient(135deg, rgba(0, 243, 255, 0.1), rgba(255, 0, 255, 0.1));
+    color: var(--text-primary);
     cursor: pointer;
     font-size: 14px;
-    transition: all 0.3s;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(5px);
+}
+
+button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s ease;
 }
 
 button:hover {
-    background-color: #444;
-    color: #fff;
+    border-color: var(--neon-blue);
+    box-shadow: 0 0 20px rgba(0, 243, 255, 0.4), 0 0 40px rgba(0, 243, 255, 0.2);
+    transform: translateY(-2px);
+    color: var(--neon-blue);
 }
 
+button:hover::before {
+    left: 100%;
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+/* Botón submit principal */
 button[type="submit"] {
-    background-color: #007bff;
-    color: white;
+    background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
+    color: var(--dark-bg);
     border: none;
     width: 100%;
-    margin-top: 10px;
+    margin-top: 15px;
+    font-weight: 700;
+    box-shadow: 0 0 20px rgba(0, 243, 255, 0.4);
 }
 
 button[type="submit"]:hover {
-    background-color: #0056b3;
+    box-shadow: 0 0 30px rgba(0, 243, 255, 0.6), 0 0 60px rgba(179, 0, 255, 0.3);
+    color: var(--dark-bg);
+    transform: translateY(-2px);
 }
+
+/* Botón volver */
+.btn-volver {
+    background: rgba(255, 102, 0, 0.1);
+    border-color: var(--neon-orange);
+    color: var(--neon-orange);
+    padding: 10px 20px;
+    font-size: 12px;
+    margin-bottom: 15px;
+}
+
+.btn-volver:hover {
+    box-shadow: 0 0 15px rgba(255, 102, 0, 0.4);
+    color: var(--neon-orange);
+}
+
+/* ============================================
+   NAVEGACIÓN / MENÚ
+   ============================================ */
 
 nav {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 10px;
-    margin-top: 15px;
+    gap: 15px;
+    margin-top: 25px;
+}
+
+nav button {
+    min-width: 140px;
+    background: rgba(0, 243, 255, 0.05);
+    border: 2px solid rgba(0, 243, 255, 0.3);
+}
+
+nav button:hover {
+    background: rgba(0, 243, 255, 0.15);
+    border-color: var(--neon-blue);
+    box-shadow: 0 0 25px rgba(0, 243, 255, 0.3);
+}
+
+/* ============================================
+   TABLAS RESPONSIVE
+   ============================================ */
+
+.table-container {
+    width: 100%;
+    overflow-x: auto;
+    border-radius: 15px;
+    border: 1px solid rgba(0, 243, 255, 0.2);
+    box-shadow: 0 0 20px rgba(0, 243, 255, 0.1);
+    margin: 20px 0;
+    background: rgba(10, 10, 20, 0.3);
+}
+
+.table-container::-webkit-scrollbar {
+    height: 8px;
+}
+
+.table-container::-webkit-scrollbar-track {
+    background: rgba(10, 10, 20, 0.5);
+    border-radius: 4px;
+}
+
+.table-container::-webkit-scrollbar-thumb {
+    background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple));
+    border-radius: 4px;
+}
+
+.table-container::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(90deg, var(--neon-pink), var(--neon-blue));
 }
 
 table {
-    margin: 16px 0;
-    border: 1px solid #000;
+    margin: 0;
+    min-width: 100%;
     width: 100%;
-    border-collapse: collapse;
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 0;
+    overflow: hidden;
+    box-shadow: none;
 }
 
-table th, table td {
-    border: 1px solid #000;
-    padding: 10px;
-    text-align: left;
+table thead {
+    background: linear-gradient(135deg, rgba(0, 243, 255, 0.2), rgba(255, 0, 255, 0.2));
 }
 
 table th {
-    background-color: #f0f0f0;
-}
-
-.hidden {
-    display: none !important;
-}
-
-/* Botón volver al menú */
-.btn-volver {
-    background-color: #6c757d;
-    color: white;
-    border: none;
-    padding: 8px 15px;
+    padding: 14px 16px;
+    text-align: left;
+    color: var(--neon-blue);
+    font-weight: 700;
+    text-transform: uppercase;
     font-size: 12px;
-    margin-bottom: 10px;
-    border-radius: 8px;
+    letter-spacing: 1px;
+    border-bottom: 2px solid rgba(0, 243, 255, 0.3);
+    white-space: nowrap;
 }
 
-.btn-volver:hover {
-    background-color: #5a6268;
+table td {
+    padding: 12px 14px;
+    border-bottom: 1px solid rgba(0, 243, 255, 0.1);
+    color: var(--text-secondary);
+    transition: all 0.3s ease;
+    white-space: nowrap;
 }
 
-/* Producto item en pedidos */
+table tbody tr {
+    background: rgba(10, 10, 20, 0.4);
+    transition: all 0.3s ease;
+}
+
+table tbody tr:hover {
+    background: rgba(0, 243, 255, 0.08);
+    transform: scale(1.01);
+}
+
+table tbody tr:hover td {
+    color: var(--text-primary);
+}
+
+table button {
+    padding: 6px 14px;
+    font-size: 11px;
+    margin: 2px;
+    min-width: 55px;
+}
+
+/* ============================================
+   PRODUCTO ITEM (pedidos)
+   ============================================ */
+
 .producto-item {
     display: flex;
-    gap: 10px;
-    margin-bottom: 10px;
+    gap: 12px;
+    margin-bottom: 15px;
     align-items: center;
+    padding: 12px;
+    background: rgba(10, 10, 20, 0.5);
+    border-radius: 12px;
+    border: 1px solid rgba(0, 243, 255, 0.2);
+    transition: all 0.3s ease;
+}
+
+.producto-item:hover {
+    border-color: var(--neon-blue);
+    box-shadow: 0 0 15px rgba(0, 243, 255, 0.1);
 }
 
 .producto-item select {
@@ -179,5 +509,84 @@ table th {
 
 .producto-item button {
     flex: 0;
-    padding: 8px 15px;
+    padding: 10px 18px;
+    background: rgba(255, 0, 255, 0.1);
+    border-color: var(--neon-pink);
+    color: var(--neon-pink);
+}
+
+.producto-item button:hover {
+    box-shadow: 0 0 15px rgba(255, 0, 255, 0.4);
+}
+
+/* ============================================
+   UTILIDADES
+   ============================================ */
+
+.hidden {
+    display: none !important;
+}
+
+/* Scrollbar personalizada */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--darker-bg);
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(var(--neon-blue), var(--neon-purple));
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(var(--neon-pink), var(--neon-blue));
+}
+
+/* Animación de entrada */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+section {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    h1 { font-size: 32px; }
+    h2 { font-size: 22px; }
+    section { padding: 25px; width: 95%; }
+    nav button { min-width: 120px; padding: 12px 20px; }
+    .logo-svg { width: 90px; height: 90px; }
+    .section-icon svg { width: 35px; height: 35px; }
+    
+    .table-container {
+        border-radius: 10px;
+    }
+    
+    table th {
+        padding: 10px 12px;
+        font-size: 10px;
+    }
+    
+    table td {
+        padding: 8px 10px;
+        font-size: 12px;
+    }
+    
+    table button {
+        padding: 5px 10px;
+        font-size: 10px;
+        min-width: 50px;
+    }
 }

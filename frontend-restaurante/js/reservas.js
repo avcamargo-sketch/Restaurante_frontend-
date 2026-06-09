@@ -25,7 +25,7 @@ async function consultarReservas() {
             return;
         }
         
-        let html = '<table><thead><tr><th>Cliente</th><th>Teléfono</th><th>Fecha</th><th>Hora</th><th>Mesa</th><th>Estado</th><th>Acciones</th></tr></thead><tbody>';
+        let html = '<div class="table-container"><table><thead><tr><th>Cliente</th><th>Teléfono</th><th>Fecha</th><th>Hora</th><th>Mesa</th><th>Estado</th><th>Acciones</th></tr></thead><tbody>';
         
         reservas.forEach(reserva => {
             html += `
@@ -44,8 +44,8 @@ async function consultarReservas() {
             `;
         });
         
-        html += '</tbody></table>';
-        reservasContent.innerHTML = html;
+   html += '</tbody></table></div>';
+   reservasContent.innerHTML = html;
         
     } catch (error) {
         console.error(error);

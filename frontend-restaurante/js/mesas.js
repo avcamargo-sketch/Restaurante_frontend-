@@ -69,10 +69,24 @@ function cancelarMesa() {
 mesaFormElement.addEventListener('submit', async (event) => {
     event.preventDefault();
     
+    // VALIDACIONES
+    const numero = mesaFormElement['numero'].value.trim();
+    const capacidad = parseInt(mesaFormElement['capacidad'].value);
+    
+    if (numero === '') {
+        showMsg('El número de mesa no puede estar vacío');
+        return;
+    }
+    
+    if (isNaN(capacidad) || capacidad < 1) {
+        showMsg('La capacidad debe ser mayor a cero');
+        return;
+    }
+    
     const id = mesaFormElement['id'].value;
     const data = {
-        numero: mesaFormElement['numero'].value,
-        capacidad: parseInt(mesaFormElement['capacidad'].value),
+        numero: numero,
+        capacidad: capacidad,
         estado: mesaFormElement['estado'].value
     };
     
@@ -128,6 +142,13 @@ async function editarMesa(id) {
 async function cambiarEstadoMesa(id) {
     const estado = prompt('Nuevo estado (disponible, reservada, ocupada, fuera_servicio):');
     if (!estado) return;
+    
+    // Validar estado válido
+    const estadosValidos = ['disponible', 'reservada', 'ocupada', 'fuera_servicio'];
+    if (!estadosValidos.includes(estado)) {
+        showMsg('Estado no válido');
+        return;
+    }
     
     try {
         const response = await fetch(`${API_RESERVAS}/mesa/${id}/estado`, {

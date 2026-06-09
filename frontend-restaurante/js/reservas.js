@@ -94,13 +94,50 @@ async function cargarMesasSelect() {
 reservaFormElement.addEventListener('submit', async (event) => {
     event.preventDefault();
     
+    // VALIDACIONES
+    const nombreCliente = reservaFormElement['nombre_cliente'].value.trim();
+    const telefono = reservaFormElement['telefono_cliente'].value.trim();
+    const cantidadPersonas = parseInt(reservaFormElement['cantidad_personas'].value);
+    const fecha = reservaFormElement['fecha'].value;
+    const hora = reservaFormElement['hora'].value;
+    
+    if (nombreCliente === '') {
+        showMsg('El nombre del cliente no puede estar vacío');
+        return;
+    }
+    
+    if (telefono === '') {
+        showMsg('El teléfono no puede estar vacío');
+        return;
+    }
+    
+    if (isNaN(cantidadPersonas) || cantidadPersonas < 1) {
+        showMsg('La cantidad de personas debe ser mayor a cero');
+        return;
+    }
+    
+    // Validar fecha no sea pasada
+    const hoy = new Date();
+    hoy.setHours(0, 0, 0, 0);
+    const fechaReserva = new Date(fecha);
+    
+    if (fechaReserva < hoy) {
+        showMsg('No se pueden hacer reservas en fechas pasadas');
+        return;
+    }
+    
+    if (hora === '') {
+        showMsg('Debe seleccionar una hora');
+        return;
+    }
+    
     const id = reservaFormElement['id'].value;
     const data = {
-        nombre_cliente: reservaFormElement['nombre_cliente'].value,
-        telefono_cliente: reservaFormElement['telefono_cliente'].value,
-        cantidad_personas: parseInt(reservaFormElement['cantidad_personas'].value),
-        fecha: reservaFormElement['fecha'].value,
-        hora: reservaFormElement['hora'].value,
+        nombre_cliente: nombreCliente,
+        telefono_cliente: telefono,
+        cantidad_personas: cantidadPersonas,
+        fecha: fecha,
+        hora: hora,
         mesa_id: parseInt(reservaFormElement['mesa_id'].value),
         observaciones: reservaFormElement['observaciones'].value
     };

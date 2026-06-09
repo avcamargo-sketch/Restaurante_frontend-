@@ -2,7 +2,7 @@ const modal1 = document.getElementById('modal1');
 const modalMsg = document.getElementById('modalMsg');
 
 const showMsg = (msg) => {
-    modalMsg.textContent = msg;
+    modalMsg.innerHTML = msg;
     modal1.classList.remove('close');
 }
 

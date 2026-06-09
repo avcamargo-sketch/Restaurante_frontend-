@@ -1,6 +1,3 @@
-// URL del microservicio de autenticación
-const API_AUTH = 'http://127.0.0.1:8001';
-
 // Variables globales
 let token = localStorage.getItem('token') || null;
 
@@ -75,6 +72,32 @@ function mostrarMenu() {
     menuSection.style.display = 'block';
 }
 
+// Volver al menú principal
+function volverMenu() {
+    // Ocultar todas las secciones
+    document.getElementById('mesasSection').style.display = 'none';
+    document.getElementById('reservasSection').style.display = 'none';
+    document.getElementById('productosSection').style.display = 'none';
+    document.getElementById('pedidosSection').style.display = 'none';
+    
+    // Ocultar formularios si están abiertos
+    if (document.getElementById('mesaForm')) {
+        document.getElementById('mesaForm').style.display = 'none';
+    }
+    if (document.getElementById('reservaForm')) {
+        document.getElementById('reservaForm').style.display = 'none';
+    }
+    if (document.getElementById('productoForm')) {
+        document.getElementById('productoForm').style.display = 'none';
+    }
+    if (document.getElementById('pedidoForm')) {
+        document.getElementById('pedidoForm').style.display = 'none';
+    }
+    
+    // Mostrar menú
+    document.getElementById('menuSection').style.display = 'block';
+}
+
 // Cerrar sesión
 async function cerrarSesion() {
     try {
@@ -92,23 +115,13 @@ async function cerrarSesion() {
     localStorage.removeItem('token');
     loginSection.style.display = 'block';
     menuSection.style.display = 'none';
+    
+    // Ocultar todas las secciones
+    document.getElementById('mesasSection').style.display = 'none';
+    document.getElementById('reservasSection').style.display = 'none';
+    document.getElementById('productosSection').style.display = 'none';
+    document.getElementById('pedidosSection').style.display = 'none';
+    
     loginForm.reset();
     showMsg('Sesión cerrada');
-}
-
-// Funciones para mostrar módulos (placeholder)
-function mostrarMesas() {
-    showMsg('Módulo de Mesas - En construcción');
-}
-
-function mostrarReservas() {
-    showMsg('Módulo de Reservas - En construcción');
-}
-
-function mostrarProductos() {
-    showMsg('Módulo de Productos - En construcción');
-}
-
-function mostrarPedidos() {
-    showMsg('Módulo de Pedidos - En construcción');
 }

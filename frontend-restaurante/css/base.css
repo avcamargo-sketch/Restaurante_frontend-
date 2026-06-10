@@ -1,8 +1,4 @@
-/* ============================================
-   RESTAURANTE XYZ - ESTILO NEÓN CYBERPUNK
-   ============================================ */
 
-/* Variables de colores neón */
 :root {
     --neon-blue: #00f3ff;
     --neon-pink: #ff00ff;
@@ -18,7 +14,7 @@
     --border-glow: 0 0 10px rgba(0, 243, 255, 0.5);
 }
 
-/* Reset y base */
+
 * {
     padding: 0;
     margin: 0;
@@ -35,7 +31,7 @@ body {
     position: relative;
 }
 
-/* Efecto de partículas de fondo */
+
 body::before {
     content: '';
     position: fixed;
@@ -51,9 +47,6 @@ body::before {
     z-index: 0;
 }
 
-/* ============================================
-   LOGO Y TÍTULO
-   ============================================ */
 
 .logo-container {
     text-align: center;
@@ -130,9 +123,7 @@ h4 {
     margin: 15px 0 10px;
 }
 
-/* ============================================
-   ICONOS DE SECCIÓN (PEQUEÑOS - 40px)
-   ============================================ */
+
 
 .section-icon {
     text-align: center;
@@ -181,9 +172,7 @@ h4 {
     filter: drop-shadow(0 0 8px rgba(255, 102, 0, 0.5));
 }
 
-/* ============================================
-   CONTENEDOR PRINCIPAL
-   ============================================ */
+
 
 .content {
     display: flex;
@@ -198,9 +187,7 @@ h4 {
     z-index: 1;
 }
 
-/* ============================================
-   SECCIONES / CARDS
-   ============================================ */
+
 
 section {
     background: var(--card-bg);
@@ -244,9 +231,7 @@ section:hover {
     transform: translateY(-2px);
 }
 
-/* ============================================
-   FORMULARIOS
-   ============================================ */
+
 
 form div {
     margin-bottom: 20px;
@@ -286,9 +271,7 @@ input:focus, select:focus {
     background: rgba(10, 10, 25, 0.8);
 }
 
-/* ============================================
-   BOTONES
-   ============================================ */
+
 
 button {
     padding: 14px 28px;
@@ -334,7 +317,7 @@ button:active {
     transform: translateY(0);
 }
 
-/* Botón submit principal */
+
 button[type="submit"] {
     background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
     color: var(--dark-bg);
@@ -366,9 +349,7 @@ button[type="submit"]:hover {
     color: var(--neon-orange);
 }
 
-/* ============================================
-   NAVEGACIÓN / MENÚ
-   ============================================ */
+
 
 nav {
     display: flex;
@@ -390,9 +371,7 @@ nav button:hover {
     box-shadow: 0 0 25px rgba(0, 243, 255, 0.3);
 }
 
-/* ============================================
-   TABLAS RESPONSIVE
-   ============================================ */
+
 
 .table-container {
     width: 100%;
@@ -478,9 +457,7 @@ table button {
     min-width: 55px;
 }
 
-/* ============================================
-   PRODUCTO ITEM (pedidos)
-   ============================================ */
+
 
 .producto-item {
     display: flex;
@@ -519,9 +496,7 @@ table button {
     box-shadow: 0 0 15px rgba(255, 0, 255, 0.4);
 }
 
-/* ============================================
-   UTILIDADES
-   ============================================ */
+
 
 .hidden {
     display: none !important;

@@ -18,7 +18,6 @@ function mostrarLogin() {
     document.getElementById('productosSection').style.display = 'none';
     document.getElementById('pedidosSection').style.display = 'none';
     
-    // Ocultar formularios si están abiertos
     if (document.getElementById('mesaForm')) {
         document.getElementById('mesaForm').style.display = 'none';
     }
@@ -39,11 +38,10 @@ function mostrarMenu() {
 }
 
 // ============================================
-// VALIDACIÓN DE SESIÓN (MEJORADA)
+// VALIDACIÓN DE SESIÓN
 // ============================================
 
 async function validarSesion() {
-    // Si no hay token, mostrar login directamente
     if (!token) {
         mostrarLogin();
         return;
@@ -59,19 +57,16 @@ async function validarSesion() {
         if (response.status === 200) {
             mostrarMenu();
         } else {
-            // Token inválido o expirado - limpiar todo
             console.log('Token inválido, cerrando sesión...');
             await cerrarSesionSilenciosa();
             mostrarLogin();
         }
     } catch (error) {
         console.error('Error de conexión:', error);
-        // Si no hay conexión con el servidor, mostrar login
         mostrarLogin();
     }
 }
 
-// Cerrar sesión sin mostrar mensajes (para uso interno)
 async function cerrarSesionSilenciosa() {
     try {
         await fetch(`${API_AUTH}/logout`, {
@@ -89,22 +84,21 @@ async function cerrarSesionSilenciosa() {
 }
 
 // ============================================
-// EVENTOS
+// LOGIN CORREGIDO - ACEPTA USUARIO O CORREO
 // ============================================
 
-// Verificar sesión al cargar la página
-if (token) {
-    validarSesion();
-} else {
-    mostrarLogin();
-}
-
-// Evento de login
 loginForm.addEventListener('submit', async (event) => {
     event.preventDefault();
     
-    const usuario = loginForm['usuario'].value;
+    const usuarioInput = loginForm['usuario'].value.trim();
     const contrasena = loginForm['contrasena'].value;
+    
+    // Detectar si es correo o usuario
+    const esCorreo = usuarioInput.includes('@');
+    
+    const data = esCorreo 
+        ? { correo: usuarioInput, contrasena: contrasena }
+        : { usuario: usuarioInput, contrasena: contrasena };
     
     try {
         const response = await fetch(`${API_AUTH}/login`, {
@@ -112,21 +106,18 @@ loginForm.addEventListener('submit', async (event) => {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({
-                usuario: usuario,
-                contrasena: contrasena
-            })
+            body: JSON.stringify(data)
         });
         
-        const data = await response.json();
+        const result = await response.json();
         
         if (response.status === 200) {
-            token = data.token;
+            token = result.token;
             localStorage.setItem('token', token);
-            showMsg(`¡Bienvenido ${data.nombre}!`);
+            showMsg(`¡Bienvenido ${result.nombre}!`);
             mostrarMenu();
         } else {
-            showMsg(data.msg || 'Error en login');
+            showMsg(result.msg || 'Credenciales incorrectas');
         }
     } catch (error) {
         console.error(error);
@@ -134,15 +125,16 @@ loginForm.addEventListener('submit', async (event) => {
     }
 });
 
-// Volver al menú principal
+// ============================================
+// OTRAS FUNCIONES
+// ============================================
+
 function volverMenu() {
-    // Ocultar todas las secciones
     document.getElementById('mesasSection').style.display = 'none';
     document.getElementById('reservasSection').style.display = 'none';
     document.getElementById('productosSection').style.display = 'none';
     document.getElementById('pedidosSection').style.display = 'none';
     
-    // Ocultar formularios si están abiertos
     if (document.getElementById('mesaForm')) {
         document.getElementById('mesaForm').style.display = 'none';
     }
@@ -156,11 +148,9 @@ function volverMenu() {
         document.getElementById('pedidoForm').style.display = 'none';
     }
     
-    // Mostrar menú
     document.getElementById('menuSection').style.display = 'block';
 }
 
-// Cerrar sesión
 async function cerrarSesion() {
     try {
         await fetch(`${API_AUTH}/logout`, {
@@ -178,7 +168,6 @@ async function cerrarSesion() {
     loginSection.style.display = 'block';
     menuSection.style.display = 'none';
     
-    // Ocultar todas las secciones
     document.getElementById('mesasSection').style.display = 'none';
     document.getElementById('reservasSection').style.display = 'none';
     document.getElementById('productosSection').style.display = 'none';
@@ -186,4 +175,11 @@ async function cerrarSesion() {
     
     loginForm.reset();
     showMsg('Sesión cerrada');
+}
+
+// Verificar sesión al cargar
+if (token) {
+    validarSesion();
+} else {
+    mostrarLogin();
 }
